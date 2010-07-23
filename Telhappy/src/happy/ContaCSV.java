@@ -62,7 +62,7 @@ public class ContaCSV implements ContaAutomatica{
 			if (matcher.matches()) {
 				
 				Telefonema tel = new Telefonema();
-				tel.setTelefone(matcher.group(1));
+				tel.setTelefone(DataAccess.formatTel(matcher.group(1),11));
 				tel.setTimeStamp(matcher.group(2));
 				String val = matcher.group(3);
 				tel.setValor(Double.parseDouble(val.replaceAll(",", "."))); // precaução em caso de valor estar com vírgula
@@ -78,7 +78,7 @@ public class ContaCSV implements ContaAutomatica{
 
 		conta = new HashMap<String, Double>();
 		conflitos = new HashMap<Telefonema, TelInfo>();
-		
+
 		conta.put(NAO_IDENTIFICADOS, 0d);
 		conta.put(CONFLITO, 0d);
 		
@@ -91,8 +91,6 @@ public class ContaCSV implements ContaAutomatica{
 					(info.getUsuarios().get(0).equals(""))) { // telefonema não identificado
 				
 				Double valor = conta.get(NAO_IDENTIFICADOS);
-				if (valor == null)
-					valor = 0d;
 				valor += t.getValor();
 				conta.put(NAO_IDENTIFICADOS, valor);
 			} else {
@@ -100,8 +98,6 @@ public class ContaCSV implements ContaAutomatica{
 				if (info.getUsuarios().size() > 1) { // conflito
 
 					Double valor = conta.get(CONFLITO);
-					if (valor == null)
-						valor = 0d;
 					valor += t.getValor();
 					conta.put(CONFLITO, valor);
 					
