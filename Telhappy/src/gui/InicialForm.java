@@ -14,13 +14,13 @@ public class InicialForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	JButton moradores, inclusao, busca, automatico, ajuda;
+	JButton moradores, inclusao, busca, automatico, ajuda, sobre;
 	
 	public InicialForm() {
 		
 		super("TelHappy 2.0");
 		
-		getContentPane().setLayout(new GridLayout(8, 1));
+		getContentPane().setLayout(new GridLayout(9, 1));
 
 		JLabel label1 = new JLabel("TellHappy 2.0", JLabel.CENTER);
 		JLabel label2 = new JLabel("  -- We are watching you, we will get you! oO --");		
@@ -32,12 +32,14 @@ public class InicialForm extends JFrame {
 		busca = new JButton("Encontrar telefonemas não identificados");
 		automatico = new JButton("Fazer conta automática");
 		ajuda = new JButton("Ajuda =O");
+		sobre = new JButton("Sobre");
 		
 		moradores.addActionListener(new MoradoresListener());
 		busca.addActionListener(new BuscaListener());
 		ajuda.addActionListener(new AjudaListener());
 		inclusao.addActionListener(new InclusaoListener());
 		automatico.addActionListener(new AutomListener());
+		sobre.addActionListener(new SobreListener());
 		
 		getContentPane().add(label1);
 		getContentPane().add(label2);
@@ -48,6 +50,7 @@ public class InicialForm extends JFrame {
 		getContentPane().add(automatico);
 		getContentPane().add(moradores);
 		getContentPane().add(ajuda);
+		getContentPane().add(sobre);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
@@ -105,6 +108,16 @@ public class InicialForm extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 
 			JFrame form = new AutomForm();
+			form.setVisible(true);
+		}
+	}
+
+	private class SobreListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+
+			JFrame form = new SobreForm();
 			form.setVisible(true);
 		}
 	}
