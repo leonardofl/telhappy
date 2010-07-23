@@ -2,6 +2,7 @@ package test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import gui.InicialForm;
 import happy.ContaAutomatica;
@@ -9,6 +10,8 @@ import happy.ContaCSV;
 import happy.ContaNET;
 import happy.DataAccess;
 import happy.DataConverter;
+import happy.TelInfo;
+import happy.Telefonema;
 
 public class Testing {
 
@@ -23,11 +26,25 @@ public class Testing {
 		// executa conta
 		File f = new File("./resources/conta.csv");
 		ContaCSV aut = new ContaCSV(f);
+		Map<String, Double> map = null;
 		try {
-			aut.executar();
+			map = aut.executar();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		for (String u: map.keySet()) {
+			
+			double v = map.get(u);
+			System.out.println(u + " - " + v);
+		}
+		
+		System.out.println("\nConflitos:");
+		Map<Telefonema, TelInfo> conflitos = aut.conflitos();
+		for (Telefonema tel: conflitos.keySet()) {
+			
+			System.out.println(tel.getTelefone() + " - " + conflitos.get(tel));
 		}
 		
 		// converte do mysql
